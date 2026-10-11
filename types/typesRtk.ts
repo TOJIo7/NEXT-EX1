@@ -1,24 +1,37 @@
-
-
-export interface IRequestTodos{
-    data: ITodo[] | boolean,
-    errors: [] | unknown,
+export interface IRequestTodos {
+    data: ITodo[],
+    errors: unknown,
     statusCode: number
 }
 
-export interface ITodo{
+export interface IRequestSingleTodo {
+    data: ITodo,
+    errors: unknown,
+    statusCode: number
+}
+
+export interface ITodo {
     id: number,
-    isComplited: boolean,
-    images: IImages[]
+    isCompleted?: boolean,
+    isComplited?: boolean,
+    images: IImages[],
     name: string,
     description: string
 }
-export interface IImages{
+
+export interface IImages {
     id: number,
     imageName: string
 }
-export interface IPostRequest{
+
+export interface IPostRequest {
     data: number,
-    errors: [],
+    errors: unknown,
     statusCode: number
+}
+
+export interface IEditTaskPayload {
+    id: number,
+    name: string,
+    description: string
 }

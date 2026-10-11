@@ -1,7 +1,5 @@
-import { IRequestTodos, ITodo } from "@/types/typesRtk";
+import { IEditTaskPayload, IRequestSingleTodo, IRequestTodos } from "@/types/typesRtk";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-
 
 export const todosApi = createApi({
     reducerPath: 'todosApi',
@@ -10,10 +8,10 @@ export const todosApi = createApi({
         getTodos: build.query<IRequestTodos, string>({
             query: () => 'to-dos'
         }),
-        getTaskById: build.query<IRequestTodos, number>({
+        getTaskById: build.query<IRequestSingleTodo, string | number | undefined>({
             query: (id) => (`to-dos/${id}`)
         }),
-        delTask: build.mutation<IRequestTodos, string>({
+        delTask: build.mutation<IRequestTodos, string | number>({
             query: (id) => ({
                 url: `to-dos?id=${id}`,
                 method: 'DELETE'
@@ -26,7 +24,7 @@ export const todosApi = createApi({
                 body
             })
         }),
-        editTask: build.mutation<IRequestTodos, any>({
+        editTask: build.mutation<IRequestTodos, IEditTaskPayload>({
             query: (body) => ({
                 url: 'to-dos',
                 method: 'PUT',
@@ -43,10 +41,8 @@ export const todosApi = createApi({
             })
         }),
         postImg: build.mutation<IRequestTodos, FormData>({
-            query: (formData: any) => {
-
+            query: (formData: FormData) => {
                 const id = formData.get('id')
-
                 return {
                     url: `to-dos/${id}/images`,
                     method: 'POST',
@@ -61,7 +57,6 @@ export const todosApi = createApi({
             })
         })
     })
-
 })
 
 export const {
